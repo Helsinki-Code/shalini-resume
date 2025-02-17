@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shalini Tomar - Data Analytics Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Advanced Animation Keyframes */
+        @keyframes dataFlow {
+            0% { stroke-dashoffset: 1000; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes codeTyping {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px var(--bright-data); }
+            50% { box-shadow: 0 0 20px var(--bright-data); }
+            100% { box-shadow: 0 0 5px var(--bright-data); }
+        }
+
+        @keyframes floatData {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Root Variables */
+        :root {
+            --deep-navy: #0a192f;
+            --bright-data: #00ff9d;
+            --soft-lavender: #e6e6ff;
+            --code-pink: #ff3366;
+            --python-blue: #306998;
+            --insight-yellow: #ffd700;
+            --sql-orange: #ff7f50;
+            --success-green: #4caf50;
+            --grid-size: 30px;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Fira Code', monospace;
+        }
+
+        body {
+            background-color: var(--deep-navy);
+            color: var(--soft-lavender);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Grid Background */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 157, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 157, 0.05) 1px, transparent 1px);
+            background-size: var(--grid-size) var(--grid-size);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .data-stream {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+        }
+
+        .profile-container {
+            background: rgba(10, 25, 47, 0.9);
+            padding: 3rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            max-width: 900px;
+            width: 100%;
+            animation: fadeScale 1s ease-out;
+        }
+
+        .profile-header {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            animation: pulseGlow 3s infinite;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .terminal-section {
+            background: rgba(10, 25, 47, 0.95);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            border: 1px solid var(--bright-data);
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--code-pink);
+        }
+
+        .terminal-dot:nth-child(2) { background: var(--insight-yellow); }
+        .terminal-dot:nth-child(3) { background: var(--bright-data); }
+
+        .code-block {
+            font-family: 'Fira Code', monospace;
+            color: var(--soft-lavender);
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .comment { color: var(--bright-data); }
+        .keyword { color: var(--code-pink); }
+        .string { color: var(--insight-yellow); }
+        .number { color: var(--python-blue); }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .skill-card {
+            background: rgba(10, 25, 47, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--bright-data);
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-icon {
+            font-size: 1.5rem;
+            color: var(--bright-data);
+        }
+
+        /* Timeline Section */
+        .timeline {
+            position: relative;
+            margin: 4rem 0;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--bright-data);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            margin: 2rem 0;
+            width: 50%;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) { left: 0; }
+        .timeline-item:nth-child(even) { left: 50%; }
+
+        .timeline-content {
+            background: rgba(10, 25, 47, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            position: relative;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--bright-data);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before { right: -40px; }
+        .timeline-item:nth-child(even) .timeline-content::before { left: -40px; }
+
+        /* Achievements Section */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .achievement-card {
+            background: rgba(10, 25, 47, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .achievement-card:hover {
+            transform: translateX(10px);
+            border-color: var(--insight-yellow);
+        }
+
+        .achievement-icon {
+            font-size: 2rem;
+            color: var(--insight-yellow);
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            background: rgba(10, 25, 47, 0.8);
+            padding: 3rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            color: var(--soft-lavender);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--bright-data);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile-header {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .profile-image {
+                margin: 0 auto;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 3rem;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-content::before {
+                left: -40px !important;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .data-stream,
+            .grid-background {
+                display: none;
+            }
+
+            .profile-container,
+            .terminal-section,
+            .skill-card,
+            .timeline-content,
+            .achievement-card {
+                background: white;
+                border: 1px solid #ccc;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+    
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="data-stream">
+                <!-- SVG data streams will be added via JavaScript -->
+            </div>
+
+            <div class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-image">
+                        <img src="hero2.png" alt="Shalini Tomar" />
+                    </div>
+                    <div>
+                        <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">
+                            <span style="color: var(--bright-data)">const</span> 
+                            <span style="color: var(--code-pink)">developer</span> = 
+                            <span style="color: var(--insight-yellow)">"Shalini Tomar"</span>;
+                        </h1>
+                        <p style="color: var(--soft-lavender); font-size: 1.2rem;">
+                            Data Analyst & Automation Specialist
+                        </p>
+                    </div>
+                </div>
+
+                <div class="terminal-section">
+                    <div class="terminal-header">
+                        <div class="terminal-dot"></div>
+                        <div class="terminal-dot"></div>
+                        <div class="terminal-dot"></div>
+                    </div>
+                    <div class="code-block">
+<span class="comment">// Professional Profile</span>
+<span class="keyword">const</span> profile = {
+    role: <span class="string">"Data Analyst"</span>,
+    experience: <span class="number">4</span>,
+    expertise: [<span class="string">"Python"</span>, <span class="string">"SQL"</span>, <span class="string">"Automation"</span>],
+    currentCompany: <span class="string">"Axtria"</span>,
+    clients: [<span class="string">"GSK"</span>, <span class="string">"Bosch"</span>, <span class="string">"Daiichi Sankyu"</span>],
+    education: {
+        degree: <span class="string">"BTech IT"</span>,
+        gpa: <span class="number">8.44</span>,
+        year: <span class="string">"2016-2020"</span>
+    }
+};
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Skills Section -->
+        <section class="terminal-section">
+            <h2 style="color: var(--bright-data); margin-bottom: 2rem;">Technical Arsenal</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i class="fab fa-python skill-icon"></i>
+                        <h3>Python Mastery</h3>
+                    </div>
+                    <p>Advanced automation scripts and data processing workflows. Specialized in pandas, numpy, and data analysis.</p>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i class="fas fa-database skill-icon"></i>
+                        <h3>SQL Expertise</h3>
+                    </div>
+                    <p>Complex query optimization, database management, and data extraction for large-scale datasets.</p>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i class="fas fa-chart-bar skill-icon"></i>
+                        <h3>Power BI</h3>
+                    </div>
+                    <p>Creating interactive dashboards and insightful visualizations for data-driven decision making.</p>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i class="fas fa-file-excel skill-icon"></i>
+                        <h3>Advanced Excel</h3>
+                    </div>
+                    <p>Expert in complex formulas, pivot tables, and VBA automation for efficient data analysis.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Timeline -->
+        <section class="terminal-section">
+            <h2 style="color: var(--bright-data); margin-bottom: 2rem;">Professional Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="code-block">
+<span class="comment">// Current Role</span>
+<span class="keyword">function</span> currentPosition() {
+    return {
+        company: <span class="string">"Axtria"</span>,
+        duration: <span class="string">"July 2022 - Present"</span>,
+        projects: [
+            {
+                name: <span class="string">"Roster Maintenance"</span>,
+                tech: <span class="string">"Python Automation"</span>,
+                client: <span class="string">"Daiichi Sankyu"</span>
+            }
+        ],
+        impact: <span class="string">"Streamlined processes & enhanced efficiency"</span>
+    };
+}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="code-block">
+<span class="comment">// Key Project Highlights</span>
+<span class="keyword">const</span> projectImpact = {
+    automation: <span class="string">"Reduced manual work by 70%"</span>,
+    documentation: <span class="string">"Created comprehensive BRDs"</span>,
+    collaboration: [<span class="string">"GSK"</span>, <span class="string">"Bosch"</span>]
+};
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section class="terminal-section">
+            <h2 style="color: var(--bright-data); margin-bottom: 2rem;">Achievements.map(success => highlight)</h2>
+            <div class="achievements-grid">
+                <div class="achievement-card">
+                    <i class="fas fa-trophy achievement-icon"></i>
+                    <h3>Top Paper Presenter</h3>
+                    <p>Madras Institute of Technology</p>
+                    <div class="code-block">
+<span class="comment">// Achievement Details</span>
+result: <span class="string">"1st Position"</span>
+skills: [<span class="string">"Research"</span>, <span class="string">"Communication"</span>]
+                    </div>
+                </div>
+
+                <div class="achievement-card">
+                    <i class="fas fa-lightbulb achievement-icon"></i>
+                    <h3>Mind Storming Champion</h3>
+                    <p>Vel Tech Rangarajan Institute</p>
+                    <div class="code-block">
+<span class="comment">// Innovation Metrics</span>
+ranking: <span class="string">"1st Place"</span>
+category: <span class="string">"Problem Solving"</span>
+                    </div>
+                </div>
+
+                <div class="achievement-card">
+                    <i class="fas fa-star achievement-icon"></i>
+                    <h3>Outstanding Paper Presenter</h3>
+                    <p>SRM Institute of Science and Technology</p>
+                    <div class="code-block">
+<span class="comment">// Research Excellence</span>
+position: <span class="string">"2nd Place"</span>
+impact: <span class="string">"Advanced Analytics"</span>
+                    </div>
+                </div>
+
+                <div class="achievement-card">
+                    <i class="fas fa-award achievement-icon"></i>
+                    <h3>Best Debater</h3>
+                    <p>Vel Tech Rangarajan Institute</p>
+                    <div class="code-block">
+<span class="comment">// Communication Skills</span>
+achievement: <span class="string">"1st Position"</span>
+skills: [<span class="string">"Persuasion"</span>, <span class="string">"Analysis"</span>]
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section class="terminal-section">
+            <h2 style="color: var(--bright-data); margin-bottom: 2rem;">Educational.compile()</h2>
+            <div class="code-block">
+<span class="comment">// Academic Background</span>
+<span class="keyword">const</span> education = {
+    degree: <span class="string">"Bachelor of Technology"</span>,
+    major: <span class="string">"Information Technology"</span>,
+    duration: <span class="string">"2016-2020"</span>,
+    gpa: <span class="number">8.44</span>,
+    highlights: [
+        <span class="string">"Advanced Data Structures"</span>,
+        <span class="string">"Algorithm Design"</span>,
+        <span class="string">"Database Management"</span>
+    ]
+};
+
+<span class="comment">// Language Proficiency</span>
+<span class="keyword">const</span> languages = {
+    hindi: <span class="string">"Native"</span>,
+    english: <span class="string">"Professional Working Proficiency"</span>
+};
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-container">
+            <h2 style="color: var(--bright-data); margin-bottom: 2rem;">Connect.init()</h2>
+            <div class="code-block">
+<span class="comment">// Professional Network</span>
+<span class="keyword">const</span> contact = {
+    email: <span class="string">"shalinitomar1099@gmail.com"</span>,
+    linkedin: <span class="string">"https://www.linkedin.com/in/Shalini-tomar-10sha/"</span>,
+    location: <span class="string">"India"</span>
+};
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/Helsinki-Code" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/Shalini-tomar-10sha/" class="social-link"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:shalinitomar1099@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Create animated data streams
+        function createDataStreams() {
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("width", "100%");
+            svg.setAttribute("height", "100%");
+            
+            const dataStream = document.querySelector('.data-stream');
+            dataStream.appendChild(svg);
+
+            for(let i = 0; i < 5; i++) {
+                const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                path.setAttribute("class", "data-path");
+                
+                // Create random wavy path
+                const startY = Math.random() * window.innerHeight;
+                const pathData = `M-100,${startY} ` + 
+                    Array.from({length: 4}, (_, j) => {
+                        const x = j * 400;
+                        const y = startY + Math.sin(j) * 50;
+                        return `L${x},${y} `;
+                    }).join('');
+                
+                path.setAttribute("d", pathData);
+                path.style.stroke = 'var(--bright-data)';
+                path.style.strokeWidth = '1';
+                path.style.fill = 'none';
+                path.style.opacity = '0.2';
+                
+                // Add animation
+                const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+                animate.setAttribute("attributeName", "stroke-dashoffset");
+                animate.setAttribute("from", "1000");
+                animate.setAttribute("to", "0");
+                animate.setAttribute("dur", `${3 + i}s`);
+                animate.setAttribute("repeatCount", "indefinite");
+                
+                path.appendChild(animate);
+                svg.appendChild(path);
+            }
+        }
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', () => {
+            createDataStreams();
+        });
+    </script>
+</body>
+</html>
